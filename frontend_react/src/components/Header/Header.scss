@@ -1,0 +1,41 @@
+.header{
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 7px 0 rgba(149, 149, 149, 0.25);
+  margin-bottom: 25.06px;
+
+  .container {
+    margin: auto;
+    height: 57px;
+    width: calc(100vw - 48px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-left{
+      display: flex;
+
+      .logo{
+        display: flex;
+        align-items: center;
+        margin-right: 19.85px;
+      
+        img{
+          width: 29.7px;
+          height: 29.7px;
+        }
+      
+        span{
+          font-size: 11.45px;
+          color:#455A64;
+          font-weight: 400;
+          margin-left: 14.51px;
+        }
+      }
+    }
+
+    .button_close{
+      width: 13.14px;
+      height: 13.14px;
+    }
+  }
+}

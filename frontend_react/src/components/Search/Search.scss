@@ -1,0 +1,36 @@
+@import '../../styles/break-points.scss';
+
+.search_input{
+    width: 314.1px;
+    height: 28px;
+    border: 1px solid #D9D9D9;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+    outline: 0;
+    padding: 9px;
+    background-image: url('../../img/search.png');
+    background-repeat: no-repeat;
+    background-position: 290px center;
+
+}
+
+input::placeholder{
+    font-size: 9px;
+    color: #9A9A9A;
+}
+
+@include tablet {
+
+}
+
+@include laptop {
+
+}
+
+@include desktop {
+
+}
+
+@include desktop-large {
+
+}
