@@ -1,0 +1,76 @@
+@import '../../styles/break-points.scss';
+
+.home {
+
+    .home_container {
+        width: calc(100vw - 20px);
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .categories {
+            margin-left: 20px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+@include mobile {
+    .home .home_container{
+        width: 390px;
+    }
+}
+
+@include laptop {
+    .home .home_container{
+        width: calc(100vw - 20px);
+
+        .notes_new{
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .categories, .notes_favorites, .notes_others{
+            width: calc(100% - (100% - 820px));
+            margin: auto;
+        }
+
+        .categories{
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .notes_favorites, .notes_others{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+@include desktop {
+    .home .home_container{
+        width: 1230px;
+        margin: auto;
+
+        .categories, .notes_favorites, .notes_others{
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .notes_favorites, .notes_others{
+            margin-bottom: 20px;
+        }
+
+        .categories{
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+    }
+}

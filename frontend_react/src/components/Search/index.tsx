@@ -1,12 +1,12 @@
 import React from "react";
-import "./Search.scss";
+import styles from "./Search.module.scss";
 
 const Search = () => {
     return(
-      <div>
+      <div className={styles.search} >
         <input 
           type="search" 
-          className="search_input" 
+          className={styles.search_input} 
           placeholder="Pesquisar notas"
         />
       </div>  

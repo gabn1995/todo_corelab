@@ -1,0 +1,54 @@
+@import '../../styles/break-points.scss';
+
+.search {
+
+    .search_input {
+        width: 210px;
+        height: 28px;
+        border: 1px solid #D9D9D9;
+        border-radius: 3px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+        outline: 0;
+        padding: 9px;
+        background-image: url('../../img/search.png');
+        background-repeat: no-repeat;
+        background-position: 186px center;
+    }
+
+    input::placeholder {
+        font-size: 9px;
+        color: #9A9A9A;
+    }
+}
+
+@include mobile {
+    .search .search_input {
+        width: 200px;
+        background-position: 176px center;
+    }
+}
+
+@include tablet {
+    .search .search_input {
+        width: 314px;
+        background-position: 290px center;
+    }
+
+    input::placeholder {
+        font-size: 12px;
+    }
+}
+
+@include laptop {
+    .search .search_input {
+        width: 360px;
+        background-position: 326px center;
+    }
+}
+
+@include desktop {
+    .search .search_input {
+        width: 530px;
+        background-position: 506px center;
+    }
+}

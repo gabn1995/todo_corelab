@@ -1,15 +1,15 @@
-import "./Header.scss";
+import styles from "./Header.module.scss";
 import Icon from "../../img/icon.png";
 import Close from "../../img/close.png";
 import Search from "../Search";
 
 const Header = () => {
     return(
-      <div className="header">
-        <div className="container">
-          <div className="header-left">
+      <div className={styles.header}>
+        <div className={styles.container}>
+          <div className={styles.header_left}>
             {/* logo */}
-            <div className="logo">
+            <div className={styles.logo}>
               <img src={Icon} alt="icon" />
               <span>CoreNotes</span>
             </div>
@@ -22,7 +22,7 @@ const Header = () => {
           
 
           {/* button close */}
-          <img src={Close} alt="close" className="button_close"/>
+          <img src={Close} alt="close" className={styles.button_close} />
           {/* end-button close */}
         </div>
       </div>  
