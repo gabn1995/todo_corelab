@@ -4,7 +4,6 @@ import Icon from "../../img/icon.png";
 import Close from "../../img/close.png";
 import { doLogout } from "../../lib/authHandler";
 import { INote } from "../../types/Note";
-import { useNavigate } from "react-router-dom";
 
 let timer: NodeJS.Timeout;
 
@@ -14,8 +13,6 @@ type Props = {
 }
 
 const Header = ({ listNotes, getListFilters }: Props) => {
-    const navigate = useNavigate();
-
     const [search, setSearch] = useState<string>("");
     const [listFilters, setListFilters] = useState<INote[]>([]);
 
@@ -26,7 +23,7 @@ const Header = ({ listNotes, getListFilters }: Props) => {
         setListFilters(list);
 
         if (!search && listFilters.length > 0) {
-            navigate('/', { replace: true });
+            window.location.href = '/';
         }
     }
 

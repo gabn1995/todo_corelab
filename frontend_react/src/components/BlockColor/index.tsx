@@ -1,14 +1,12 @@
 import { useState } from "react";
 import styles from "./BlockColor.module.scss";
 import { changeColor } from "../../lib/api";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
     id: number,
     setIsEditPaint: (isEdit: boolean) => void,
 }
 const BlockColor = ({id, setIsEditPaint}: Props) => {
-    const navigate = useNavigate();
 
     const [error, setError] = useState<string>();
 
@@ -20,9 +18,8 @@ const BlockColor = ({id, setIsEditPaint}: Props) => {
             alert(error);
         }else{
             setIsEditPaint(false);
-            // alert('Cor alterada com sucesso!');
+            alert('Cor alterada com sucesso!');
             window.location.href = '/';
-            navigate('/', { replace: true });
         }
     }
 

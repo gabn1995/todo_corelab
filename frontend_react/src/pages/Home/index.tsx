@@ -4,13 +4,14 @@ import Header from "../../components/Header";
 import Note from "../../components/Note";
 import { INote } from "../../types/Note";
 import { readNotes } from "../../lib/api";
+import Loading from "../../img/loading.gif";
 
 const HomePage = () => {
     const [listNotes, setListNotes] = useState<INote[]>([]);
     const [listNotesFavorites, setListNotesFavorites] = useState<INote[]>([]);
     const [listNotesOthers, setListNotesOthers] = useState<INote[]>([]);
     const [listNotesFilters, setListNotesFilters] = useState<INote[]>([]);
-
+    const [existNotes, setExistNotes] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -29,8 +30,16 @@ const HomePage = () => {
         // eslint-disable-next-line eqeqeq
         setListNotesFavorites(listNotes.filter(i => i.favorite == true));
         // eslint-disable-next-line eqeqeq
-        setListNotesOthers(listNotes.filter(i => i.favorite != true));
+        setListNotesOthers(listNotes.filter(i => i.favorite == false));
     }, [listNotes]);
+
+    useEffect(() => {
+        const id = setTimeout(() => {
+            setExistNotes(false);
+        }, 3000);
+    
+        return () => clearTimeout(id);
+    }, []);
 
     const handleGetListFilters = async (list: INote[]) => {
         setListNotesFilters(list);
@@ -47,8 +56,8 @@ const HomePage = () => {
                 </div>
                 {/* end-new-note */}
 
-                {/* favorites-notes */}
-                {!loading && listNotesFilters.length > 0 && listNotesOthers.length > 0 && (listNotesFilters.length != (listNotesFavorites.length + listNotesOthers.length)) &&
+                {/* filtrados-notes */}
+                {!loading && listNotesFilters.length > 0 && listNotesOthers.length > 0 &&
                     <>
                         <span className={styles.categories}>Filtrados</span>
                         <div className={styles.notes_favorites}>
@@ -58,10 +67,10 @@ const HomePage = () => {
                         </div>
                     </>
                 }
-                {/* end-favorites-notes */}
+                {/* end-filtrados-notes */}
 
                 {/* favorites-notes */}
-                {!loading && listNotesFilters.length == 0 && listNotesFavorites.length > 0 && listNotesOthers.length > 0 && (listNotesFilters.length != (listNotesFavorites.length + listNotesOthers.length)) &&
+                {!loading && listNotesFilters.length === 0 && listNotesFavorites.length > 0 &&
                     <>
                         <span className={styles.categories}>Favoritas</span>
                         <div className={styles.notes_favorites}>
@@ -74,7 +83,7 @@ const HomePage = () => {
                 {/* end-favorites-notes */}
 
                 {/* others-notes */}
-                {!loading && listNotesFilters.length == 0 && listNotesOthers.length > 0 && (listNotesFilters.length != (listNotesFavorites.length + listNotesOthers.length)) &&
+                {!loading && listNotesFilters.length === 0 && listNotesOthers.length > 0 &&
                     <>
                         <span className={styles.categories}>Outras</span>
                         <div className={styles.notes_others}>
@@ -87,17 +96,26 @@ const HomePage = () => {
                 {/* end-others-notes */}
 
                 {/* loading */}
-                {!loading && (listNotesFilters.length == (listNotesFavorites.length + listNotesOthers.length)) &&
-                    <div>
-                        Não há resultados!
-                    </div>
-                }
                 {loading &&
-                    <div>
-                        Carregando...
+                    <div className={styles.loading}>
+                        <img src={Loading} alt="loading" />
                     </div>
                 }
                 {/* end-loading */}
+
+                {/* lista de notas vazia */}
+                {existNotes && !loading && listNotes.length === 0 &&
+                    <div className={styles.loading}>
+                        <img src={Loading} alt="loading" />
+                    </div>
+                }
+                {/* end-lista de notas vazia */}
+                {!existNotes && !loading && listNotes.length === 0 &&
+                    <div className={styles.loading}>
+                        Não há tarefas.
+                    </div>
+                }
+
             </div>
 
         </div >

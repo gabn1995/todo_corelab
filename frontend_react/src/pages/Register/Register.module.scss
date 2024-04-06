@@ -7,21 +7,25 @@
 
     .container {
         width: 320px;
-        height: 500px;
-        background-color: grey;
+        height: 480px;
+        background-color: #D7D7D7;
         display: flex;
         flex-direction: column;
         align-items: center;
+        border-radius: 10px;
+        text-align: center;
 
         .error{
             width: 300px;
             margin: auto;
-            margin-top: 5px;
+            position: absolute;
+            top: 8px;
             padding: 3px;
-            border: 1px solid #FF0000;
+            border: 1px solid #c51244;
+            border-radius: 5px;
             font-size: 12px;
+            color: #c51244;
         }
-
 
         .logo{
             display: flex;
@@ -63,13 +67,12 @@
                 padding: 0;
                 color: white;
                 cursor: pointer;
-    
             }
         }
 
         .message{
             font-size: 12px;
-            margin: 10px 0;
+            margin-top: 10px;
         }
     }
 }

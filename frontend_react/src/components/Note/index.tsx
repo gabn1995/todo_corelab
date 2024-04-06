@@ -5,9 +5,9 @@ import Favorite_fill from "../../img/favorite_fill.png";
 import Pencil from "../../img/pencil.png";
 import Paint from "../../img/paint.png";
 import Close from "../../img/close.png";
+import Done from "../../img/done.png";
 import { INote } from "../../types/Note_props";
 import BlockColor from "../BlockColor";
-import { useNavigate } from "react-router-dom";
 import { createNote, changeFavorite, editNote, deleteNote } from "../../lib/api";
 
 const Note = ({
@@ -18,8 +18,6 @@ const Note = ({
     is_favorite = false,
     color = '#FFFFFF'
 }: INote) => {
-    const navigate = useNavigate();
-
     const [newTitle, setNewTitle] = useState<string>("");
     const [newBody, setNewBody] = useState<string>("");
     const [newNoteFavorite, setNewNoteFavorite] = useState<boolean>(false);
@@ -31,6 +29,7 @@ const Note = ({
     const [isEditPaint, setIsEditPaint] = useState<boolean>(false);
 
     const handleNewNote = async () => {
+
         if (is_new) {
             if (newTitle && newBody) {
                 setDisabled(true);
@@ -43,12 +42,15 @@ const Note = ({
                     alert(error);
                 } else {
                     alert("Tarefa criada com sucesso!");
+                    window.location.href = '/';
                 }
 
                 setNewTitle('');
                 setNewBody('');
                 setNewNoteFavorite(false);
                 setDisabled(false);
+            }else{
+                alert("O título e/ou corpo estão vazios!");
             }
         }
     }
@@ -64,12 +66,12 @@ const Note = ({
                 setError(json.error);
                 alert(error);
             } else {
-                // window.location.href = '/';
-                navigate('/', { replace: true });
+                is_favorite ? alert("Tarefa marcada como não favorita") : alert("Tarefa marcada favorita");
+                window.location.href = '/';
             }
 
-        }else{
-            setNewNoteFavorite(true);
+        } else {
+            newNoteFavorite ? setNewNoteFavorite(false) : setNewNoteFavorite(true);
         }
         setDisabled(false);
     }
@@ -111,7 +113,7 @@ const Note = ({
     }
 
     return (
-        <div className={`${styles.note} ${is_new ? styles.note_new : ''}`} onBlur={handleNewNote}>
+        <div className={`${styles.note} ${is_new ? styles.note_new : ''}`}>
             <div className={styles.note_container} style={{ backgroundColor: color }}>
                 {/* header */}
                 <div className={styles.note_header}>
@@ -128,6 +130,11 @@ const Note = ({
                         alt="favorite"
                         onClick={() => handleChangeFavorite(id)}
                     />
+                    {is_new &&
+                        <div onClick={handleNewNote}  className={styles.img_done}>
+                            <img src={Done} alt="done" />
+                        </div>
+                    }
                 </div>
                 {/* end-header */}
 
@@ -165,7 +172,7 @@ const Note = ({
             </div>
             {/* blockColor */}
             {isEditPaint &&
-                <BlockColor id={id} setIsEditPaint={setIsEditPaint}/>
+                <BlockColor id={id} setIsEditPaint={setIsEditPaint} />
             }
             {/* end-blockColor */}
         </div>
