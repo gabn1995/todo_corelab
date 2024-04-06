@@ -1,25 +1,42 @@
+import { useState } from "react";
 import styles from "./BlockColor.module.scss";
-import ItemColor from "../ItemColor";
+import { changeColor } from "../../lib/api";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
-    visible: boolean
+    id: number,
+    setIsEditPaint: (isEdit: boolean) => void,
 }
+const BlockColor = ({id, setIsEditPaint}: Props) => {
+    const navigate = useNavigate();
 
-const BlockColor = ({visible}: Props) => {
+    const [error, setError] = useState<string>();
+
+    const handleChangeColor = async (color: string) => {
+        const json = await changeColor(id, color);
+
+        if (json.error) {
+            setError(json.error);
+            alert(error);
+        }else{
+            setIsEditPaint(false);
+            // alert('Cor alterada com sucesso!');
+            window.location.href = '/';
+            navigate('/', { replace: true });
+        }
+    }
+
+    const listColor = [
+        "#BAE2FF","#B9FFDD","#FFE8AC","#FFCAB9",
+        "#F99494","#9DD6FF","#ECA1FF","#DAFF8B",
+        "#FFA285","#CDCDCD","#979797","#A99A7C",
+    ];
+
     return(
-        <div className={styles.blockColor} style={{display:`${visible ? 'flex' : 'none'}`}}>
-            <ItemColor color="#BAE2FF"/>
-            <ItemColor color="#B9FFDD"/>
-            <ItemColor color="#FFE8AC"/>
-            <ItemColor color="#FFCAB9"/>
-            <ItemColor color="#F99494"/>
-            <ItemColor color="#9DD6FF"/>
-            <ItemColor color="#ECA1FF"/>
-            <ItemColor color="#DAFF8B"/>
-            <ItemColor color="#FFA285"/>
-            <ItemColor color="#CDCDCD"/>
-            <ItemColor color="#979797"/>
-            <ItemColor color="#A99A7C"/>
+        <div className={styles.blockColor}>
+             {listColor.map((i, k) =>
+                <div key={k} onClick={() => handleChangeColor(i)} className={styles.itemColor} style={{backgroundColor: i}}></div>
+             )}       
         </div>    
     );
 };

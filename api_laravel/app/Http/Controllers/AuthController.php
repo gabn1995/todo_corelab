@@ -74,6 +74,19 @@ class AuthController extends Controller
     }
 
     /**
+     * Método para pegar usuário associado a um token
+     */
+    public function me(): JsonResponse {
+        // Retorno das informações em formato JSON
+        $response = [
+            'error' => '',
+            // Pegar usuário
+            'user' => Auth::user(),
+        ];
+        return response()->json($response);
+    }
+
+    /**
      * Método para mostrar mensagem de erro para usuário não autenticado
      */
     public function unauthenticated(): JsonResponse {

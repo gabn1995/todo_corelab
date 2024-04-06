@@ -21,16 +21,26 @@
             align-items: center;
 
             .title {
+                width: 100%;
+                background-color: transparent;
+                border: 0;
+                outline: 0;
                 font-size: 14.2px;
                 font-weight: bold;
                 color: #333333;
+
+                &::placeholder {
+                    font-size: 14.2px;
+                    font-weight: bold;
+                    color: #333333;
+                }
             }
 
             img {
                 width: 19.35px;
                 height: 18.38px;
 
-                &:hover{
+                &:hover {
                     cursor: pointer;
                 }
             }
@@ -49,6 +59,11 @@
                 color: #50656E;
                 background-color: transparent;
             }
+
+            &::placeholder {
+                font-size: 13px;
+                color: #50656E;
+            }
         }
 
         .note_body.old {
@@ -61,24 +76,26 @@
             align-items: center;
             margin: 0 20px 10px 20px;
 
-            .note_footer_left{
+            .note_footer_left {
+                width: 50px;
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
 
-                .footer_pencil_fill, .footer_paint_fill{
+                .footer_pencil_fill:hover, .footer_paint_fill:hover, .tint_edit{
+                    background-color: #FFE3B3;
+                    cursor: pointer;
+                }
+
+                .footer_pencil_fill,
+                .footer_paint_fill {
                     width: 28px;
                     height: 28px;
                     border-radius: 50%;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-    
-                    
-                    &:hover{
-                        background-color: #FFE3B3;
-                        cursor: pointer;
-                    }
-                
+
                     .footer_pencil {
                         width: 20px;
                         height: 20px;
@@ -89,17 +106,13 @@
                         height: 17px;
                     }
                 }
-
-                .footer_paint_fill{
-                    margin-left: 10px;
-                }
             }
 
             .footer_close {
                 width: 13px;
                 height: 13px;
 
-                &:hover{
+                &:hover {
                     cursor: pointer;
                 }
             }
@@ -114,23 +127,23 @@
 }
 
 @include laptop {
-    .note{
+    .note {
         margin: 0;
         margin-bottom: 40px;
     }
-    
+
     .note.note_new {
         width: 530px;
-        
-        .note_container{
+
+        .note_container {
             border-radius: 3px;
         }
     }
-    
+
 }
 
 @include desktop {
-    .note{
+    .note {
         margin: 0 10px 30px 10px;
     }
 }

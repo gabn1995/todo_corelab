@@ -1,11 +1,96 @@
-import "./Register.scss";
+import { useState } from "react";
+import styles from "./Register.module.scss";
+import Logo from "../../img/icon.png";
+import { register } from "../../lib/api";
+import { doLogin } from '../../lib/authHandler';
 
 const RegisterPage = () => {
-    return(
-      <div className="register">
-        <h1>Pg Register</h1>
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [disabled, setDisabled] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
 
-      </div>  
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        setDisabled(true);
+        setError('');
+
+        const json = await register(name, email, password);
+
+        if (json.error) {
+            setError(json.error);
+        } else {
+            doLogin(json.token)
+            window.location.href = '/';
+        }
+
+        setDisabled(false);
+    }
+
+    return (
+        <form onSubmit={handleSubmit} className={styles.register}>
+            <div className={styles.container}>
+                {error &&
+                    <div className={styles.error}>{error}</div>
+                }
+
+                <div className={styles.logo}>
+                    <img src={Logo} alt="logo" />
+                    <span>CoreNotes</span>
+                </div>
+
+                <div className={styles.group}>
+                    <label htmlFor="name">Nome</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Seu nome"
+                        required
+                        disabled={disabled}
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                    />
+                </div>
+
+                <div className={styles.group}>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="Seu email"
+                        required
+                        disabled={disabled}
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                </div>
+
+                <div className={styles.group}>
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        name="email"
+                        id="password"
+                        placeholder="Sua senha"
+                        required
+                        disabled={disabled}
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                </div>
+
+                <div className={styles.group}>
+                    <button>Cadastrar</button>
+                </div>
+
+                <div className={styles.message}>
+                    <a href="/login"><span>Já possui conta?, faça Login.</span></a>
+                </div>
+            </div>
+        </form>
     );
 }
 

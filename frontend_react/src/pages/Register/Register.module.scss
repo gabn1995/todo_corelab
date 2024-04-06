@@ -1,0 +1,75 @@
+.register {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+        width: 320px;
+        height: 500px;
+        background-color: grey;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .error{
+            width: 300px;
+            margin: auto;
+            margin-top: 5px;
+            padding: 3px;
+            border: 1px solid #FF0000;
+            font-size: 12px;
+        }
+
+
+        .logo{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+            
+
+            img{
+                width: 80px;
+                height: 80px;
+            }
+
+            span{
+                margin-top: 10px;
+                font-size: 20px;
+            }
+        }
+
+        .group{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+
+            input, button{
+                height: 25px;
+                width: 250px;
+                padding: 8px;
+                font-size: 14px;
+                border: 0;
+                border-radius: 5px;
+                outline: 0;
+            }
+
+            button{
+                background-color: blue;
+                margin-top: 10px;
+                padding: 0;
+                color: white;
+                cursor: pointer;
+    
+            }
+        }
+
+        .message{
+            font-size: 12px;
+            margin: 10px 0;
+        }
+    }
+}

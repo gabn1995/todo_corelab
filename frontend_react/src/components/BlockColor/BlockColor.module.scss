@@ -1,13 +1,5 @@
 @import '../../styles/break-points.scss';
 
-.visible {
-    display: block;
-}
-
-.inVisible {
-    display: none;
-}
-
 .blockColor {
     display: flex;
     flex-wrap: wrap;
@@ -17,6 +9,19 @@
     background-color: #FFFFFF;
     border: 1px solid #D9D9D9;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+
+    .itemColor {
+        width: 37px;
+        height: 37px;
+        border-radius: 50%;
+        margin: 5px;
+    
+        &:hover{
+            border: 2px solid #000000;
+            cursor: pointer;
+        }
+    }
+
 }
 
 @include laptop {

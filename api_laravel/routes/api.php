@@ -26,6 +26,9 @@ Route::post('/user', [AuthController::class, 'create']);
 // Rota para logar usuário
 Route::post('/auth/login', [AuthController::class, 'login']);
 
+// Rota para pegar usuário associado a um token - o usuário tem que está logado
+Route::middleware('auth:sanctum')->post('/auth/me', [AuthController::class, 'me']);
+
 // Rota para fazer logout - o usuário tem que está logado
 Route::middleware('auth:sanctum')->post('/auth/logout', [AuthController::class, 'logout']);
 /* end-Rotas de autenticação */
