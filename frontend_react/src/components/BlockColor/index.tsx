@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./BlockColor.module.scss";
 import { changeColor } from "../../lib/api";
+import { listColor } from "../../lib/colors";
 
 type Props = {
     id: number,
     setIsEditPaint: (isEdit: boolean) => void,
 }
 const BlockColor = ({id, setIsEditPaint}: Props) => {
-
+    const [listColorSelect, setListColorSelect] = useState<string[]>([]);
     const [error, setError] = useState<string>();
+
+    useEffect(() => {
+        setListColorSelect(listColor);
+    }, []);
 
     const handleChangeColor = async (color: string) => {
         const json = await changeColor(id, color);
@@ -23,15 +28,9 @@ const BlockColor = ({id, setIsEditPaint}: Props) => {
         }
     }
 
-    const listColor = [
-        "#BAE2FF","#B9FFDD","#FFE8AC","#FFCAB9",
-        "#F99494","#9DD6FF","#ECA1FF","#DAFF8B",
-        "#FFA285","#CDCDCD","#979797","#A99A7C",
-    ];
-
     return(
         <div className={styles.blockColor}>
-             {listColor.map((i, k) =>
+             {listColorSelect.map((i, k) =>
                 <div key={k} onClick={() => handleChangeColor(i)} className={styles.itemColor} style={{backgroundColor: i}}></div>
              )}       
         </div>    

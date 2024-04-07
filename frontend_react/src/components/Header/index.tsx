@@ -3,6 +3,7 @@ import styles from "./Header.module.scss";
 import Icon from "../../img/icon.png";
 import Close from "../../img/close.png";
 import { doLogout } from "../../lib/authHandler";
+import { listColor } from "../../lib/colors";
 import { INote } from "../../types/Note";
 
 let timer: NodeJS.Timeout;
@@ -15,15 +16,26 @@ type Props = {
 const Header = ({ listNotes, getListFilters }: Props) => {
     const [search, setSearch] = useState<string>("");
     const [listFilters, setListFilters] = useState<INote[]>([]);
+    const [listColorSelect, setListColorSelect] = useState<string[]>([]);
+    const [colorSelect, setColorSelect] = useState<string>("");
 
     const filterList = async () => {
-        let list = listNotes.filter((i) =>
-            i.title.includes(search)
-        );
-        setListFilters(list);
+        let list: INote[] = [];
 
-        if (!search && listFilters.length > 0) {
+        if (!search && !colorSelect && listFilters.length > 0) {
             window.location.href = '/';
+        }
+
+        if (search && colorSelect) {
+            list = listNotes.filter(i => i.title.includes(search) && i.color === colorSelect);
+        } else if (search && !colorSelect) {
+            list = listNotes.filter(i => i.title.includes(search));
+        }
+        if(list.length > 0) {
+            setListFilters(list);
+        }else if(list.length === 0 && search){
+            alert("Não há tarefas para esse(s) filtros");
+            setSearch("");
         }
     }
 
@@ -31,6 +43,9 @@ const Header = ({ listNotes, getListFilters }: Props) => {
         getListFilters(listFilters);
     }, [listFilters]);
 
+    useEffect(() => {
+        setListColorSelect(listColor);
+    }, []);
 
     useEffect(() => {
         if (timer) {
@@ -40,9 +55,28 @@ const Header = ({ listNotes, getListFilters }: Props) => {
 
     }, [search]);
 
-    const handleClose = () => {
+    const handleClose = async () => {
         doLogout();
         window.location.href = '/';
+    }
+
+    const changeColor = async (color: string) => {
+        setColorSelect(color);
+        let list: INote[] = [];
+        if (!color && !search) {
+            window.location.href = '/';
+        } else if (color && search) {
+            list = listNotes.filter(i => i.title.includes(search) && i.color === colorSelect);
+        } else if (color && !search) {
+            list = listNotes.filter(i => i.color === color);
+        }
+
+        if (list.length > 0) {
+            setListFilters(list);
+        } else {
+            alert("Não há tarefas para esse(s) filtros");
+            window.location.href = '/';
+        }
     }
 
     return (
@@ -67,6 +101,15 @@ const Header = ({ listNotes, getListFilters }: Props) => {
                         />
                     </div>
                     {/* end-search */}
+
+                    {/* filter color */}
+                    <select onChange={e => changeColor(e.target.value)} style={{ backgroundColor: colorSelect }} name="" id="" className={styles.filter_color_select}>
+                        <option style={{ backgroundColor: "#FFFFFF" }} value="">---</option>
+                        {listColorSelect.map((i, k) =>
+                            <option key={k} style={{ backgroundColor: i }} value={i}></option>
+                        )}
+                    </select>
+                    {/* filter color  */}
                 </div>
 
 

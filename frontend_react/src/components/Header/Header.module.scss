@@ -37,7 +37,7 @@
             .search {
 
                 .search_input {
-                    width: 210px;
+                    width: 160px;
                     height: 28px;
                     border: 1px solid #D9D9D9;
                     border-radius: 3px;
@@ -46,7 +46,7 @@
                     padding: 9px;
                     background-image: url('../../img/search.png');
                     background-repeat: no-repeat;
-                    background-position: 186px center;
+                    background-position: 136px center;
                 }
 
                 input::placeholder {
@@ -54,15 +54,22 @@
                     color: #9A9A9A;
                 }
             }
-        }
 
-        .button_close {
-            width: 13.14px;
-            height: 13.14px;
-
-            &:hover {
-                cursor: pointer;
+            .filter_color_select {
+                height: 28px;
+                width: 40px;
+                margin-left: 10px;
+                border: 1px solid #D9D9D9;
             }
+        }
+    }
+
+    .button_close {
+        width: 13.14px;
+        height: 13.14px;
+
+        &:hover {
+            cursor: pointer;
         }
     }
 }
@@ -96,7 +103,7 @@
             width: 314px;
             background-position: 290px center;
         }
-    
+
         input::placeholder {
             font-size: 12px;
         }
